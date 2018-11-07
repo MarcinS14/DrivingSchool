@@ -1,24 +1,54 @@
-"""from django import forms
+from django import forms
+from drsch.models import *
 from django.contrib.auth.forms import UserCreationForm
-from drsch.models import User
+from django.core.validators import RegexValidator
 
 class UserCreateForm(UserCreationForm):
-		email = forms.EmailField(required=True)
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField(required=True)
+    
+    class Meta:
+      model = User
+      fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
-		class Meta:
-			model = User
-			fields = ("username",
-					  "first_name",
-					  "last_name",
-					  "email",
-						)
+      def save(self, commit=True):
+          user = super(UserCreateForm, self).save(commit=False)
+          user.first_name = self.cleaned_data["first_name"]
+          user.last_name = self.cleaned_data["last_name"]
+          user.email = self.cleaned_data["email"] 
+          if commit:
+            user.save()
+          return user
+    
 
-		def save(self, commit=True):
-			user = super(UserCreateForm, self).save(commit=False)
-			user.email = self.cleaned.data["email"]
-			user.first_name = self.cleaned.data["first_name"]
-			user.last_name = self.cleaned.data["last_name"]
+class AddUser(forms.ModelForm):
+    class Meta:
+        model = User
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
+        fields = ['username', 'password', 'email', 'is_teacher', 'is_admin']
 
-			if commit:
-				user.save()
-			return user"""
+
+class EditUser(forms.ModelForm):
+    class Meta:
+        model = User
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
+        fields = ['username', 'password', 'email', 'is_teacher', 'is_admin']
+
+    # Don't want to modify blank setting inside models (doing so will break normal validation in admin site)
+    # The redefined constructor won't harm any functionality.
+    def __init__(self, *args, **kwargs):
+        super(EditUser, self).__init__(*args, **kwargs)
+
+
+
+class Contact(forms.Form):
+    sender = forms.CharField(label='Name', max_length=30)
+    subject = forms.CharField(label='Subject', max_length=30)
+    email = forms.EmailField(label='Email', max_length=30)
+    message = forms.CharField(widget=forms.Textarea())
+

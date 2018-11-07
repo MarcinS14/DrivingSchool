@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'drsch',
+    'phonenumber_field',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -123,6 +124,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'home'
 
+AUTH_USER_MODEL = 'drsch.User'
+
+EMAIL_BACKEND = "django.core.mail.backeds.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

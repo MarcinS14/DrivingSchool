@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Contact Us {% endblock %}
+
+<html>
+	<head>
+		{% block head %}
+		<title>Contact Us</title>
+		{% endblock %}
+	</head>
+	<body>
+		{% block body %}
+		<h2> Contact Us </h2>
+		<form method="post">
+		{% csrf_token %}
+		{{ contact_form.as_p }}
+		<button type="submit"> Send </button>
+		</form>
+		{% endblock %}
+	</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit user</title>
+</head>
+<body>
+{% block body %}
+
+  <div class="col-md-2 col-md-offset-5">
+    <form method='POST' action=''>
+      {% csrf_token %}
+      {{ update_user_form.as_p }}
+      <input class='btn btn-primary' type='submit' value='Edit User'/>
+    </form>
+  </div>
+{% endblock %}
+</body>
+</html>
+
