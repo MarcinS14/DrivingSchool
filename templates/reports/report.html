@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Report {% endblock %}
+
+<html>
+<head>
+  {% block head %}
+  <title>New report</title>
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+  <h2> New Report </h2>
+
+  <div class="container professor-panel-content">
+    <div class="row">
+      <div class="col-md-4">
+        <form method='POST' enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ add_report_form.as_p }}
+          <input class='btn btn-primary' type='submit' value='Add report'/>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</body>
+</html>

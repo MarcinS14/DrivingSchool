@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %} Teacher {% endblock %}
+
+<html>
+<head>
+  {% block head %}
+  <title>Teacher</title>
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+  <h2> Teacher </h2>
+
+  <div class="container professor-panel-content">
+    <div class="row">
+      <div class="col-md-4">
+        <form method='POST' action=''>
+          {% csrf_token %}
+          {{ add_class_form.as_p }}
+          <input class='btn btn-primary' type='submit' value='Add class'/>
+        </form>
+      </div>
+
+      <!--<div class="col-md-4">
+      <form method='POST' action=''>
+          {% csrf_token %}
+          {{ add_subject_form.as_p }}
+          <input class='btn btn-primary' type='submit' value='Add Subject'/>
+        </form>
+      </div> -->
+      <!-- Button trigger modal -->
+      <div class="col-md-2">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+          Add new subject
+        </button>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-4">
+                <form method='POST' action=''>
+                  {% csrf_token %}
+                  {{ add_subject_form.as_p }}
+                  <input class='btn btn-primary' type='submit' value='Add Subject' align='right'/>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        {% if queryset %}
+        <table class="table table-condensed table-hover generic-table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Class form</th>
+              <th>User</th>
+              <th>Course</th>
+            </tr>
+          </thead>
+          {% for instance in queryset %}
+          <tr>
+            <td>{{ instance.subject }}</td>
+            <td>{{ instance.class_form }}</td>
+            <td>{{ instance.user }}</td>
+            <td>{{ instance.course }}</td>
+            <td>
+              <a href="{% url 'topics' instance.id %}">
+                <input class='btn btn-primary btn-sm' type='submit' value='View Topics'/>
+              </a>
+              <a href="{% url 'delete_class' instance.id %}">
+                <button class="btn btn-danger btn-sm">Delete class</button>
+              </a>
+              <a href="#">
+                <input class='btn btn-info btn-sm' type='submit' value='Edit students'/>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</body>
+</html>

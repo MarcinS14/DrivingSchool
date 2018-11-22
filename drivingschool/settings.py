@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'drsch',
     'phonenumber_field',
+    'reports',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -67,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -131,3 +133,6 @@ AUTH_USER_MODEL = 'drsch.User'
 
 EMAIL_BACKEND = "django.core.mail.backeds.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

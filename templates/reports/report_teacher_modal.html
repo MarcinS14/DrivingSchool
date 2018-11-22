@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Reports {% endblock %}
+
+<html>
+<head>
+  {% block head %}
+  <title>Reports</title>
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+  <h2> Reports </h2>
+  <!-- Contact core css -->
+  <div class="container content">
+    <div class="row">
+     <div class="col-md-4">
+      <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ add_grade_form.as_p }}
+        <input class='btn btn-primary' type='submit' value='Add Grade' align='right'/>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+</body>
+</html>

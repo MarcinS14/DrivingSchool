@@ -5,7 +5,8 @@ from django.views import generic
 
 #from courses.forms import AddCourseForm
 #from courses.models import *
-from .forms import *
+from drsch.forms import *
+from reports.forms import *
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import user_passes_test, login_required
 #from django.core.urlresolvers import reverse
@@ -17,6 +18,8 @@ from itertools import chain
 from django.http import Http404
 from django.utils.decorators import method_decorator
 from drsch.models import User
+from reports.models import *
+from pprint import pprint
 #from drsch.forms import UserCreateForm
 # Create your views here.
 
@@ -149,3 +152,52 @@ def delete_user(request, username):
     user = User.objects.get(username=username)
     user.delete()
     return redirect(reverse_lazy('profile'))
+
+
+@user_passes_test(lambda user: user.is_teacher)
+def teacher(request):
+	add_class_form = AddClass(request.POST or None)
+	add_subject_form = AddSubject(request.POST or None)
+	#add_report_topic = AddTopic(request.POST or None)
+	#pprint(Class.subject)
+	queryset = Class.objects.filter(user=request.user) 
+
+	context = {
+		"title": "Teacher",
+		"add_class_form": add_class_form,
+		"add_subject_form": add_subject_form,
+		#"add_report_topic": add_report_topic,
+		"queryset": queryset,
+
+	}
+
+	if add_class_form.is_valid():
+		class_name = add_class_form.cleaned_data.get("class_name")
+		instance = add_class_form.save(commit=False)
+		instance.user = request.user
+		instance.save()
+		return redirect(reverse_lazy('profile'))
+
+	if add_subject_form.is_valid():
+		subject_name = add_subject_form.cleaned_data.get("subject_name")
+		instance = add_subject_form.save(commit=False)
+		instance.save()
+		return redirect(reverse_lazy('profile'))
+
+	"""if add_report_topic.is_valid():
+		topic = add_report_topic.cleaned_data.get("topic")
+		instance = add_report_topic.save(commit=False)
+		#instance.class_id = Class.objects.get(pk=pk)
+		instance.save()
+		return redirect(reverse_lazy('profile'))"""	
+
+	return render(request, "accounts/teacher_mainsite.html", context)
+
+@login_required
+def student(request):
+	queryset = Class.objects.all()
+	context = {
+		"queryset": queryset,
+		"title": request.user,
+	}
+	return render(request, "accounts/student_mainsite.html", context)

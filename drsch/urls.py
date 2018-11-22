@@ -17,6 +17,8 @@ urlpatterns = [
 	url(r'^profile/$', views.profile, name='profile'),
 	url(r'^update_user/(?P<username>[\w ]+)/$', views.update_user, name='update_user'),
 	url(r'^delete_user/(?P<username>[\w ]+)/$', views.delete_user, name='delete_user'),
+	url(r'^student/$', views.student, name='student'),
+	url(r'^teacher/$', views.teacher, name='teacher'),
 	
 		
 ]	
