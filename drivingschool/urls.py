@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 	path('', TemplateView.as_view(template_name='home.html'), name = 'home'),
-	path('drsch/', include('django.contrib.auth.urls')),
-	path('drsch/', include('drsch.urls')),
+	path('', include('django.contrib.auth.urls')),
+	path('', include('drsch.urls')),
     path('admin/', admin.site.urls),
     path('reports/', include('django.contrib.auth.urls')),
     path('reports/', include('reports.urls')),      

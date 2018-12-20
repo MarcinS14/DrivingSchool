@@ -3,13 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
-#from courses.forms import AddCourseForm
-#from courses.models import *
 from drsch.forms import *
 from reports.forms import *
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import user_passes_test, login_required
-#from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
@@ -20,37 +17,19 @@ from django.utils.decorators import method_decorator
 from drsch.models import User
 from reports.models import *
 from pprint import pprint
-#from drsch.forms import UserCreateForm
+
 # Create your views here.
-
-"""class SignUpTeacher(generic.CreateView):
-	#form_class = UserCreationForm
-	form_class = TeacherCreateForm
-	success_url = reverse_lazy('login')
-	template_name = 'signup_teacher.html'
-
-class SignUpStudent(generic.CreateView):
-	#form_class = UserCreationForm
-	form_class = UserCreateForm
-	success_url = reverse_lazy('login')
-	template_name = 'signup_student.html'"""
-	
-def home(request):
-
-	return render(request, 'home.html')
 
 def login(request):
 
 	return render(request, 'login.html')
 
-#def signup(request):
-
-#	return render(request, 'signup.html')
 
 class SignUp(generic.CreateView):
 	form_class = UserCreateForm
 	success_url = reverse_lazy('login')
 	template_name = 'signup.html'
+
 
 def contact(request):
 	contact_form = Contact(request.POST or None)
@@ -65,16 +44,15 @@ def contact(request):
 		from_email = contact_form.cleaned_data.get("email")
 		message = contact_form.cleaned_data.get("message")
 		message = 'Sender:  ' + sender + '\nFrom:  ' + from_email + '\n\n' + message
-		send_mail(subject, message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=True)
-		success_message = "We appreciate you contacting us, one of our Customer Service colleagues will get back" \
-		                  " to you within a 24 hours."
+		send_mail(subject, message, from_email, [settings.EMAIL_HOST_USER], fail_silently=True)
+		success_message = "Message has been sent" 
 		messages.success(request, success_message)
 
 		return redirect(reverse_lazy('contact'))
 
 	return render(request, "accounts/contact.html", context)
 
-#@method_decorator(login_required)
+
 @login_required
 def profile(request):
 	if request.user.is_admin:
@@ -85,8 +63,6 @@ def profile(request):
 	return redirect(reverse_lazy('student'))
 
 
-#def checkAdmin(User):
-#	return User.is_admin
 @user_passes_test(lambda user: user.is_admin)
 def admin(request):
 	add_user_form = AddUser(request.POST or None)
@@ -158,15 +134,12 @@ def delete_user(request, username):
 def teacher(request):
 	add_class_form = AddClass(request.POST or None)
 	add_subject_form = AddSubject(request.POST or None)
-	#add_report_topic = AddTopic(request.POST or None)
-	#pprint(Class.subject)
 	queryset = Class.objects.filter(user=request.user) 
 
 	context = {
 		"title": "Teacher",
 		"add_class_form": add_class_form,
 		"add_subject_form": add_subject_form,
-		#"add_report_topic": add_report_topic,
 		"queryset": queryset,
 
 	}
@@ -184,14 +157,8 @@ def teacher(request):
 		instance.save()
 		return redirect(reverse_lazy('profile'))
 
-	"""if add_report_topic.is_valid():
-		topic = add_report_topic.cleaned_data.get("topic")
-		instance = add_report_topic.save(commit=False)
-		#instance.class_id = Class.objects.get(pk=pk)
-		instance.save()
-		return redirect(reverse_lazy('profile'))"""	
-
 	return render(request, "accounts/teacher_mainsite.html", context)
+
 
 @login_required
 def student(request):

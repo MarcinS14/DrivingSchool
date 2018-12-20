@@ -3,66 +3,53 @@
 {% block title %} Student {% endblock %}
 
 <html>
-  <head>
-    {% block head %}
-    <title>Student</title>
-    {% endblock %}
-  </head>
-  <body>
-    {% block body %}
-    <h2> Student </h2>
-    <!-- Contact core css -->
-    <div class="container content">
+<head>
+  {% block head %}
+  <title>Student</title>
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+  <h2> Student </h2>
+  <!-- Contact core css -->
+  <div class="container content">
     <div class="row">
-     <!-- {% if queryset %}
-        {% for instance in queryset %}
-          <div class="col-md-4 course-box-model">
-
-            <a href="#">
-              <div class="inner-wrap">
-                <div class="inner-top">
-                  {{ instance.report_topic }}
-                </div>
-                <div class="inner-middle"></div>
-                <div class="inner-bottom">
-                  <span class="author">Author: {{ instance.user }}</span>
-                  <span class="course-type">Self-Paced</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
-        {% endfor %}
-      {% endif %} -->
+      <div class="mb-5">
+        <a href="{% url 'report_student' title.id %}">
+          <input class='btn btn-primary' type='submit' value='My Reports' align='right'/>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="container content">
+    <div class="row">
       {% if queryset %}
-          <table class="table table-striped table-condensed generic-table">
-            <thead>
-            <tr>
-              <th>Subject</th>
-              <th>Class Form</th>
-              <th>User</th>
-              <th>Course</th>
-              <th></th>
-            </tr>
-            </thead>
-            {% for instance in queryset %}
-              <tr>
-                <td>{{ instance.subject }}</td>
-                <td>{{ instance.class_form }}</td>
-                <td>{{ instance.user }}</td>
-                <td>{{ instance.course }}</td>
-                <td>
+      <table class="table table-striped table-condensed generic-table">
+        <thead class="table-primary">
+          <tr>
+            <th>Subject</th>
+            <th>Class Form</th>
+            <th>User</th>
+            <th>Course</th>
+            <th></th>
+          </tr>
+        </thead>
+        {% for instance in queryset %}
+        <tr>
+          <td><div class="row justify-content-center">{{ instance.subject }}</div></td>
+          <td><div class="row justify-content-center">{{ instance.class_form }}</div></td>
+          <td><div class="row justify-content-center">{{ instance.user }}</div></td>
+          <td><div class="row justify-content-center">{{ instance.course }}</div></td>
+          <td><div class="row justify-content-center">
                 <a href="{% url 'classes' instance.id %}">
                   <input class='btn btn-primary btn-sm' type='submit' value='See Topics'/>
                 </a>
-                </td>
-                <td>
-              </tr>
-            {% endfor %}
+          </div></td>
+        </tr>
+        {% endfor %}
         {% endif %}
+      </div>
     </div>
-  </div>
-
     {% endblock %}
   </body>
-</html>
+  </html>

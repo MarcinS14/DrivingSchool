@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %} Teacher {% endblock %}
 
 <html>
@@ -17,7 +19,7 @@
       <div class="col-md-4">
         <form method='POST' action=''>
           {% csrf_token %}
-          {{ add_class_form.as_p }}
+          {{ add_class_form|crispy }}
           <input class='btn btn-primary' type='submit' value='Add class'/>
         </form>
       </div>
@@ -30,8 +32,8 @@
         </form>
       </div> -->
       <!-- Button trigger modal -->
-      <div class="col-md-2">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+      <div class="col-md-2 mt-3 pt-4">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
           Add new subject
         </button>
       </div>
@@ -47,10 +49,10 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <form method='POST' action=''>
                   {% csrf_token %}
-                  {{ add_subject_form.as_p }}
+                  {{ add_subject_form|crispy }}
                   <input class='btn btn-primary' type='submit' value='Add Subject' align='right'/>
                 </form>
               </div>
@@ -59,23 +61,24 @@
         </div>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-12">
         {% if queryset %}
-        <table class="table table-condensed table-hover generic-table table-bordered table-striped">
-          <thead>
+        <table class="table table-condensed generic-table table-bordered table-striped">
+          <thead class="table-primary">
             <tr>
               <th>Subject</th>
               <th>Class form</th>
               <th>User</th>
               <th>Course</th>
+              <th></th>
             </tr>
           </thead>
           {% for instance in queryset %}
           <tr>
-            <td>{{ instance.subject }}</td>
-            <td>{{ instance.class_form }}</td>
-            <td>{{ instance.user }}</td>
-            <td>{{ instance.course }}</td>
+            <td><div class="row justify-content-center">{{ instance.subject }}</div></td>
+            <td><div class="row justify-content-center">{{ instance.class_form }}</div></td>
+            <td><div class="row justify-content-center">{{ instance.user }}</div></td>
+            <td><div class="row justify-content-center">{{ instance.course }}</div></td>
             <td>
               <a href="{% url 'topics' instance.id %}">
                 <input class='btn btn-primary btn-sm' type='submit' value='View Topics'/>

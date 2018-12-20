@@ -7,18 +7,19 @@ from django.core.validators import RegexValidator
 class AddReport(forms.ModelForm):
 	class Meta:
 		model = ReportSent
-		fields = ['report_topic', 'file', 'comment']
-		'''widgets = {
+		fields = ['report_topic', 'file']
+		widgets = {
 			'report_topic': forms.HiddenInput(),
-		}'''
+		}
+
 
 class AddClass(forms.ModelForm):
 	class Meta:
 		model = Class
 		fields = ['subject', 'class_form', 'course']
 
+
 class AddTopic(forms.ModelForm):
-	#class_id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 	class Meta:
 		model = ReportTopic
 		fields = '__all__'
@@ -26,43 +27,34 @@ class AddTopic(forms.ModelForm):
 			'class_id': forms.HiddenInput(),
 		}
 
+
 class AddSubject(forms.ModelForm):
 	class Meta:
 		model = Subject
 		fields = '__all__'
 
+
 class AddGrade(forms.ModelForm):
 
-	def __init__(self, *args, **kwargs):
-		super(AddGrade, self).__init__(*args, **kwargs)
-		self.fields['file'].required=False
-
 	class Meta:
+		CHOICES = (
+		('2','2'),
+		('2.5','2.5'),
+		('3','3'),
+		('3.5','3.5'),
+		('4','4'),
+		('4.5','4.5'),
+		('5','5'),
+		)
 		model = ReportSent
-		fields = '__all__'
-		"""widgets = {
+		exclude = ['file']
+		widgets = {
 			'user': forms.HiddenInput(),
 			'report_topic': forms.HiddenInput(),
-			'file': forms.ClearableFileInput(),
-			'comment': forms.HiddenInput(),
-				
-		}"""
+			'grade': forms.Select(choices=CHOICES),		
+		}
 
 	def save(self, commit=True):
 		self.instance.grade = self.cleaned_data['grade']
+		self.instance.comment = self.cleaned_data['comment']
 		return super(AddGrade, self).save(commit=commit)
-
-"""class AddGrade(forms.Form):
-	grade = forms.FloatField()
-
-	def save(self, commit=True):
-		reportsent = ReportSent.objects.get('grade')
-		reportsent.grade = self.cleaned_data["grade"]
-
-		if commit:
-			reportsent.save()
-		return ReportSent"""
-"""class ChooseClassForm(forms.ModelForm):
-	class Meta:
-		model = ClassForm
-		fields = '__all__'"""

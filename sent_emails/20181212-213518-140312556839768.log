@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: marcin@gmail.com
+Date: Wed, 12 Dec 2018 21:35:18 -0000
+Message-ID: <154465051831.19791.3930660163777896847@marcin-VirtualBox>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/reports/reset/Nw/522-e5d3b9c1ae45305dac22/
+
+Your username, in case you've forgotten: marcin
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

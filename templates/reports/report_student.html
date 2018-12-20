@@ -19,17 +19,18 @@
         <thead class="table-primary">
           <tr>
             <th>User</th>
+            <th>Subject</th>
             <th>Topic</th>
             <th>File</th>
             <th>Date</th>
             <th>Grade</th>
             <th>Comment</th>
-            <th></th>
           </tr>
         </thead>
         {% for instance in queryset %}
         <tr>
           <td><div class="row justify-content-center">{{ instance.user }}</div></td>
+          <td><div class="row justify-content-center">{{ instance.report_topic.class_id.subject}}</div></td>
           <td><div class="row justify-content-center">{{ instance.report_topic.topic }}</div></td>
           <td><div class="row justify-content-center">
             <a href="/media/{{ instance.file }}" class="btn btn-primary btn-sm" target="_blank">Download File
@@ -38,16 +39,12 @@
           <td><div class="row justify-content-center">{{ instance.date }}</div></td>
           <td><div class="row justify-content-center">{{ instance.grade }}</div></td>
           <td><div class="row justify-content-center">{{ instance.comment }}</div></td>
-          <td><div class="row justify-content-center">
-            <a href="{% url 'report_teacher_modal' instance.id %}">
-              <input class='btn btn-primary btn-sm' type='submit' value='Add Grades'/>
-            </a>
-          </div></td>
       </tr>
       {% endfor %}
       {% endif %}
     </div>
   </div>
+
   {% endblock %}
 </body>
 </html>

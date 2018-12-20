@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{%load crispy_forms_tags %}
+
 {% block title %} Report {% endblock %}
 
 <html>
@@ -17,7 +19,7 @@
       <div class="col-md-4">
         <form method='POST' enctype="multipart/form-data">
           {% csrf_token %}
-          {{ add_report_form.as_p }}
+          {{ add_report_form|crispy }}
           <input class='btn btn-primary' type='submit' value='Add report'/>
         </form>
       </div>

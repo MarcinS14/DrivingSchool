@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +9,10 @@
 </head>
 <body>
 {% block body %}
-
-  <div class="col-md-2 col-md-offset-5">
+  <div class="col-md-4 col-md-offset-5">
     <form method='POST' action=''>
       {% csrf_token %}
-      {{ update_user_form.as_p }}
+      {{ update_user_form|crispy }}
       <input class='btn btn-primary' type='submit' value='Edit User'/>
     </form>
   </div>

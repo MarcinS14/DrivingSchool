@@ -39,8 +39,6 @@ class EditUser(forms.ModelForm):
         }
         fields = ['username', 'password', 'email', 'is_teacher', 'is_admin']
 
-    # Don't want to modify blank setting inside models (doing so will break normal validation in admin site)
-    # The redefined constructor won't harm any functionality.
     def __init__(self, *args, **kwargs):
         super(EditUser, self).__init__(*args, **kwargs)
 

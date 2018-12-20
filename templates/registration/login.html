@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 <h1>Login</h1>
 <html>
-	<head>
-		{% block head %}
-		<title>Login</title>
-		{% endblock %}
-	</head>
-	<body>
-		{% block body %}
-		<h2>Login</h2>
-		<form method="post">
-			{% csrf_token %}
-			{{ form.as_p }}
-			<button class="btn btn-secondary" type="submit">Login</button>
-		</form>
-		<h2>No account ?</h2>
-		<a class="btn btn-secondary" href="{% url 'signup' %}" role="button">Sign Up</a>
-		<h2> Forgot password ?</h2>
-		<a class="btn btn-primary" href="{% url 'password_reset' %}" role="button">Reset</a>
-		{% endblock %}
-	</body>
+<head>
+	{% block head %}
+	<title>Login</title>
+	{% endblock %}
+</head>
+{% block body %}
+<body class="text-center">
+	<h3 class="pt-3">Please sign in</h3>
+	<form  method="post">
+		{% csrf_token %}
+		<div class="row justify-content-center">
+			<div class="col-4">
+				{{ form|crispy }}
+				<button class="btn btn-primary btn-block mb-2" type="submit">Login</button>
+			</form>
+			<h3>No account ?</h3>
+			<a class="btn btn-secondary btn-block mb-2" href="{% url 'signup' %}" role="button">Sign Up</a>
+			<h3> Forgot password ?</h3>
+			<a class="btn btn-primary btn-block mb-2" href="{% url 'password_reset' %}" role="button">Reset</a>
+		</div>
+	</div>
+</body>
+{% endblock %}	
 </html>
