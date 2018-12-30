@@ -131,9 +131,13 @@ LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'drsch.User'
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
-EMAIL_HOST_USER = 'marcinswiech14@gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'reportsystemAI@gmail.com'
+EMAIL_HOST_PASSWORD = 'ReportSystem14'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

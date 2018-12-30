@@ -11,8 +11,5 @@ urlpatterns = [
 	url(r'^delete_class/(?P<class_id>[\w ]+)/$', views.delete_class, name='delete_class'),
 	url(r'^report_teacher/(?P<report_id>[\w ]+)/$', views.report_teacher, name='report_teacher'),
 	url(r'^report_teacher_modal/(?P<report_id>[\w ]+)/$', views.report_teacher_modal, name='report_teacher_modal'),
-	url(r'^report_student/(?P<username>[\w ]+)/$', views.report_student, name='report_student'),
-		
-	
-		
+	url(r'^report_student/(?P<username>[\w ]+)/$', views.report_student, name='report_student'),	
 ]	

@@ -28,16 +28,16 @@ class AddUser(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
-        fields = ['username', 'password', 'email', 'is_teacher', 'is_admin']
+        fields = ['username', 'first_name', 'last_name', 'password', 'email', 'is_teacher', 'is_admin']
 
 
 class EditUser(forms.ModelForm):
     class Meta:
         model = User
         widgets = {
-            'password': forms.PasswordInput(),
+            'password': forms.HiddenInput(),
         }
-        fields = ['username', 'password', 'email', 'is_teacher', 'is_admin']
+        fields = ['username', 'password', 'first_name', 'last_name', 'email', 'is_teacher', 'is_admin']
 
     def __init__(self, *args, **kwargs):
         super(EditUser, self).__init__(*args, **kwargs)

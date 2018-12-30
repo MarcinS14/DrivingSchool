@@ -51,7 +51,8 @@ class AddGrade(forms.ModelForm):
 		widgets = {
 			'user': forms.HiddenInput(),
 			'report_topic': forms.HiddenInput(),
-			'grade': forms.Select(choices=CHOICES),		
+			'grade': forms.Select(choices=CHOICES),	
+			'comment': forms.Textarea(),	
 		}
 
 	def save(self, commit=True):

@@ -92,7 +92,7 @@ def admin(request):
 @user_passes_test(lambda user: user.is_admin)
 def update_user(request, username):
     user = User.objects.get(username=username)
-    data_dict = {'username': user.username, 'email': user.email}
+    data_dict = {'username': user.username, 'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name}
     update_user_form = EditUser(initial=data_dict, instance=user)
 
     path = request.path.split('/')[1]
@@ -111,11 +111,7 @@ def update_user(request, username):
 
         if user_form.is_valid():
             instance = user_form.save(commit=False)
-            passwd = user_form.cleaned_data.get("password")
-
-            if passwd:
-                instance.password = make_password(password=passwd,
-                                                  salt='salt', )
+            instance.password = user.password
             instance.save()
 
             return redirect(reverse_lazy('profile'))

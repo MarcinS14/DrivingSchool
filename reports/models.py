@@ -98,11 +98,5 @@ class ReportSent(models.Model):
             grade=self.grade,
             comment=self.comment)
 
-class StudentClass(models.Model):
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
-    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
 
-class NewStudent(models.Model):
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
-    report_sent = models.ForeignKey(ReportSent, on_delete=models.CASCADE)
     
